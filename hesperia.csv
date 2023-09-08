@@ -1,0 +1,13 @@
+Hotel: Hesperia;;;;;;;;;;;;;;;;;;
+"Descripcion: ""Brindado confort a toda hora""";;;;;;;;;;;;;;;;;;
+Nombre;Fecha Reservacion;Fecha Entrada;Fecha Salida;Nro Habitacion;Duracion de la Estadía (días);Tipo de Habitacion;Preferencias Alimentarias;Nro Personas;Telefono;Contacto;Precio Total ($);Metodo de Pago;Notas Adicionales;Estado de la Reservacion;Check-in;Check-out;ID;Nro Reservas
+Jean;20/07/2023;04/08/2023;08/08/2023;3;4;Doble;Rica en proteínas;2;0414-4080806;jodriozola25@gmail.com;200;Credito;Excelente servicio;Aprobada;08:00:00;13:00:00;4567;2
+Annuar;18/07/2023;01/08/2023;09/08/2023;7;8;Individual;Rica en fibra;1;0412-5678734;annuqrabouharb123@gmail.com;460;Efectivo;Brutal comida;Aprobada;08:00:00;13:00:00;8774;4
+Arturo;16/07/2023;30/07/2023;10/08/2023;2;11;Triple;Rica en fibra;5;0414-5643261;arturito@gmail.com;800;Credito;Sin comentarios;Aprobada;08:00:00;13:00:00;3597;8
+Raul;15/06/2023;26/06/2023;05/07/2023;1;9;Doble;Rica en proteínas;2;0416-3489076;raulgonzalez@hotmail.com;280;Efectivo;Sin comentarios;En espera;08:00:00;13:00:00;2581;6
+Sofia;07/06/2023;14/06/2023;19/06/2023;4;5;King;Alergia a mariscos;2;0412-5697864;sofigarcia05@gmail.com;260;Efectivo;Increible piscina;Aprobada;08:00:00;13:00:00;2148;10
+Maria;02/03/2023;06/04/2023;30/04/2023;12;24;Suite;Solo comida vegana;4;0414-4562370;mariarodriguez99@gmail.com;1300;Credito;Sin comentarios;En espera;08:00:00;13:00:00;1375;5
+Andrea;06/01/2023;08/03/2023;21/03/2023;5;13;King;Solo comida vegana;2;0412-9820017;andreahernandezz25@gmail.com;670;Credito;Camas excelentes;Aprobada;08:00:00;13:00:00;3472;3
+Camila;07/06/2023;31/07/2023;10/08/2023;6;10;Queen;Alergia a mariscos;2;0414-5477935;camilamontero@gmail.com;630;Credito;Sin comentarios;En espera;08:00:00;13:00:00;2957;1
+Jose;03/04/2023;25/04/2023;06/05/2023;7;11;Individual;Alergia a mariscos;1;0414-6643271;josemendoza@gmai.com;370;Efectivo;Comida espectacular;Aprobada;08:00:00;13:00:00;7582;9
+Pedro;05/08/2023;28/08/2023;05/09/2023;8;8;Triple;Rica en fibra;6;0412-4361320;pedropascal04@gmail.com;840;Credito;Sin comentarios;En espera;08:00:00;13:00:00;5283;
