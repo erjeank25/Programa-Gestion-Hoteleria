@@ -8,13 +8,29 @@ Jean Odriozola #29.569.900
 import csv
 from datetime import datetime
 
+def diccionario():
+    persona = {
+        "nombre": None,
+        "reserva": None,
+        "entrada": None,
+        "salida": None,
+        "nro habitacion": None,
+        "estadia": None,
+        "precio": None,
+        "telefono": None,
+        "correo": None,
+        "id": None,
+        "nro reserva": None,
+    }
+    return persona
+
 #Algoritmos Quicksort
-def quicksort(lista,aux):
+def quicksort(lista,parametro,aux):
     # Si la lista está vacía o tiene un solo elemento, ya está ordenada
     if len(lista) <= 1:
         return lista
     # Elegimos un elemento pivot (por ejemplo, el primer elemento de la lista)
-    pivot = lista[0]
+    pivot = int(lista[0][parametro])
 
     # Dividimos la lista en tres partes: elementos menores, iguales y mayores que el pivot
     menores = []
@@ -22,48 +38,124 @@ def quicksort(lista,aux):
     mayores = []
 
     for elemento in lista:
-        if elemento < pivot:
+        if int(elemento[parametro]) < pivot:
             menores.append(elemento)
-        elif elemento == pivot:
+        elif int(elemento[parametro]) == pivot:
             iguales.append(elemento)
-        else:
+        elif int(elemento[parametro]) > pivot:
             mayores.append(elemento)
-
     # Recursivamente ordenamos las partes menores y mayores
-    menores_ordenados = quicksort(menores)
-    mayores_ordenados = quicksort(mayores)
+    menores_ordenados = quicksort(menores,parametro,aux)
+    mayores_ordenados = quicksort(mayores,parametro,aux)
 
     if aux == True: #Ascendente
         return menores_ordenados + iguales + mayores_ordenados
-    elif aux == False: #Descendente
+    else: #Descendente
         return mayores_ordenados + iguales + menores_ordenados
 
 # Función de partición para Quicksort de Fechas
-def particion(arr, bajo, alto):
-    pivot = convertir_a_datetime(arr[alto])  # Elegir el último elemento como pivote
+def particion(arr, bajo, alto,parametro,aux):
+    pivot = convertir_a_datetime(arr[alto][parametro])  # Elegir el último elemento como pivote
     i = bajo - 1  # Índice del elemento más pequeño
 
-    for j in range(bajo, alto):
-        if convertir_a_datetime(arr[j]) <= pivot:
-            i = i + 1
-            arr[i], arr[j] = arr[j], arr[i]
+    if aux == True: #Ascendente
+        for j in range(bajo, alto):
+            if convertir_a_datetime(arr[j][parametro]) <= pivot: #ojo
+                i = i + 1
+                arr[i], arr[j] = arr[j], arr[i]
 
-    arr[i + 1], arr[alto] = arr[alto], arr[i + 1]
-    return i + 1
+        arr[i + 1], arr[alto] = arr[alto], arr[i + 1]
+        return i + 1
+    else:           #Descendente
+        for j in range(bajo, alto):
+            if convertir_a_datetime(arr[j][parametro]) >= pivot: #ojo
+                i = i + 1
+                arr[i], arr[j] = arr[j], arr[i]
+
+        arr[i + 1], arr[alto] = arr[alto], arr[i + 1]
+        return i + 1        
+
 
 # Función Quicksort para ordenar fechas
-def quicksort_fechas(arr, bajo, alto):
+def quicksort_fechas(arr, bajo, alto,parametro,aux):
     if bajo < alto:
-        pi = particion(arr, bajo, alto)
+        pi = particion(arr, bajo, alto,parametro,aux)
 
         # Ordenar las sub-listas recursivamente
-        quicksort_fechas(arr, bajo, pi - 1)
-        quicksort_fechas(arr, pi + 1, alto)
+        quicksort_fechas(arr, bajo, pi - 1,parametro,aux)
+        quicksort_fechas(arr, pi + 1, alto,parametro,aux)
 
 # Función para convertir una fecha en un objeto datetime para comparación
 def convertir_a_datetime(fecha):
     return datetime.strptime(fecha, "%d/%m/%Y")
 
+
+
+
+
+
+
+
+
+def ordenamiento(database,orden):
+
+    print("\nSeleccione un elemento a ordenar: ")
+    print("1. Fecha de Reserva")
+    print("2. Fecha de Entrada")
+    print("3. Fecha de Salida")
+    print("4. Nro Habitacion")
+    print("5. Duracion Estadia")
+    print("6. Precio Total")
+    print("7. Regresar")
+    decision = int(input())
+
+    if decision == 1:
+        print("")
+        n = len(database)
+        parametro = "reserva"
+        quicksort_fechas(database,0,n-1,parametro,orden)
+        for registro in database:
+            print(registro["nombre"],registro["reserva"], registro["telefono"],registro["correo"],registro["id"])
+    elif decision == 2:
+        print("")        
+        n = len(database)
+        parametro = "entrada"
+        quicksort_fechas(database,0,n-1,parametro,orden)
+        for registro in database:
+            print(registro["nombre"],registro["entrada"], registro["telefono"],registro["correo"],registro["id"])
+    elif decision == 3:
+        print("")        
+        n = len(database)
+        parametro = "salida"
+        quicksort_fechas(database,0,n-1,parametro,orden)
+        for registro in database:
+            print(registro["nombre"],registro["salida"], registro["telefono"],registro["correo"],
+                registro["id"])
+    elif decision == 4:
+        print("")        
+        n = len(database)
+        parametro = "nro habitacion"
+        ordenado = quicksort(database,parametro,orden)
+        for registro in ordenado:
+            print(registro["nombre"],registro["nro habitacion"], registro["telefono"],registro["correo"],registro["id"])
+    elif decision == 5:
+        print("")        
+        n = len(database)
+        parametro = "estadia"
+        ordenado = quicksort(database,parametro,orden)
+        for registro in ordenado:
+            print(registro["nombre"],registro["estadia"], registro["telefono"],registro["correo"],registro["id"])                                                     
+    elif decision == 6:
+        print("")        
+        n = len(database)
+        parametro = "precio"
+        ordenado = quicksort(database,parametro,orden)
+        for registro in ordenado:
+            print(registro["nombre"],registro["precio"], registro["telefono"],registro["correo"],
+                registro["id"])
+    elif decision == 7:
+        return                                     
+                        
 def main():
 
     #Seleccion de hotel
@@ -93,7 +185,7 @@ def main():
             print("\nVuelve a intentarlo")
 
     #Eleccion de Orden (Ascendente o Descendente)
-    orden = 0
+    orden = 0 #VARIABLE IMPORTANTE
     opcion = True
     while True:
         print("\nElige una opcion de orden: ")
@@ -118,46 +210,23 @@ def main():
         next(lector)
         next(lector) #Se omiten las 3 primeras filas
 
-        nombres = []
-        reservas = []
-        entradas = []
-        salidas = []
-        nros_habitaciones = []
-        telefonos = []
-        correos = []
-        ids = []
-        nro_reservas = []
+        database = []
 
-        for columna in lector:
-
-            nombres.append(columna[0])
-            reservas.append(columna[1])
-            entradas.append(columna[2])
-            salidas.append(columna[3])
-            nros_habitaciones.append(columna[4])
-            telefonos.append(columna[9])
-            correos.append(columna[10])
-            ids.append(columna[17])
-            nro_reservas.append(columna[18])
-
-            """nombre = columna[0]
-            reserva = columna[1]
-            entrada = columna[2]
-            salida = columna[3]
-            nro_habitacion = columna[4]
-            duracion = columna[5]
-            tipo_habitacion = columna[6]
-            preferencias_alimentarias = columna[7]
-            nro_personas = columna[8]
-            telefono = columna[9]
-            correo = columna[10]
-            precio = columna[11]
-            metodo_pago = columna[12]
-            notas = columna[13]
-            estado = columna[14]
-            check_in = columna[15]
-            check_out = columna[16]
-            id = columna[17]"""
+        for columna in lector: #lectura del csv
+            persona = diccionario()
+            persona["nombre"] = columna[0]
+            persona["reserva"] = columna[1]
+            persona["entrada"] = columna[2]
+            persona["salida"] = columna[3]
+            persona["nro habitacion"] = columna[4]
+            persona["estadia"] = columna[5]
+            persona["telefono"] = columna[9]
+            persona["correo"] = columna[10]
+            persona["precio"] = columna[11]
+            persona["id"] = columna[17]
+            persona["nro reserva"] = columna[18]
+            database.append(persona)
+        print(database)
 
         print("\n****** BIENVENIDO AL SISTEMA DE RESERVACIONES ******\n")
         #Informacion del menu
@@ -174,8 +243,7 @@ def main():
             print("Orden de impresion por defecto: Descendentemente")
 
         decision = 0
-        decision_2 = 0
-
+        #opciones a realizar
         while True:
             print("\nSeleccione una opcion a realizar: ")
             print("1. Seleccion de Criterios de Ordenamiento (Quicksort)")
@@ -186,21 +254,7 @@ def main():
             decision = int(input())
 
             if decision == 1:
-                
-                print("Seleccione un elemento a ordenar: ")
-                print("1. Fecha de Reserva")
-                print("2. Fecha de Entrada")
-                print("3. Fecha de Salida")
-                print("4. Nro Habitacion")
-                print("5. Duracion Estadia")
-                print("6. Precio Total")
-                decision_2 = int(input())
-
-                if decision_2 == 1:
-                    n = len(reservas)
-                    quicksort_fechas(reservas,0,n - 1)
-                    
-                
-
+                ordenamiento(database,orden)
             
+                     
 main()
