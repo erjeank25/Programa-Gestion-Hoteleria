@@ -2,7 +2,7 @@
 1ER PROYECTO ALGORITMOS Y ESTRUCTURAS 2
 Annuar Abouharb #30.350.953
 Jean Odriozola #29.569.900
-Ihohohui Oppa Gangnam Style Bababooey
+
 """
 
 import csv #Usada para manipular el archivo.csv y configuracion.csv
@@ -10,10 +10,11 @@ import os #Usada para gestionar archivos y directorios
 import shutil #Usada en este caso para copiar archivos
 from datetime import datetime #Usada para manipular fechas y horas
 
+
 #Variables globales usadas para determinar el orden (ascen o descen), detalles del hotel y
 #ruta por defecto
 
-orden = True
+
 descripcion = ""
 ruta_defecto = ""
 
@@ -31,6 +32,18 @@ def diccionario(): #Diccionario para almacenar los valores del archivo hotel.csv
         "id": None,
     }
     return persona
+
+def diccionario_de_numero_reservaciones(): #Diccionario extra para guardar el numero de reservaciones de cada persona.
+    numero_reservacion = {
+        "nombre": None,
+        "nro reservaciones": None,
+        "telefono": None,
+        "correo": None,
+        "id": None
+    }
+    return numero_reservacion
+
+
 
 def diccionario_config(): #Diccionario para almacenar los valores del archivo configuracion.csv
     modalidades = {
@@ -106,14 +119,14 @@ def convertir_a_datetime(fecha):
     return datetime.strptime(fecha, "%d/%m/%Y")
 
 #Algoritmo Mergesort
-def mergesort(database, parametro):
+def mergesort(database, parametro,orden):
     if len(database) > 1:
         medio = len(database) // 2
         mitad_izquierda = database[:medio]
         mitad_derecha = database[medio:]
 
-        mergesort(mitad_izquierda, parametro)
-        mergesort(mitad_derecha, parametro)
+        mergesort(mitad_izquierda, parametro,orden)
+        mergesort(mitad_derecha, parametro,orden)
 
         i = j = k = 0
 
@@ -146,11 +159,51 @@ def mergesort(database, parametro):
             k += 1
 
 
+def heapify(arr,n,i,parametro,orden): #Algoritmo de apoyo de Heapsort
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+    if orden:
+        if l < n and int(arr[l][parametro]) > int(arr[largest][parametro]):
+            largest = l
+        if r < n and int(arr[r][parametro]) > int(arr[largest][parametro]):
+            largest = r
+    else:
+        if l < n and int(arr[l][parametro]) < int(arr[largest][parametro]):
+            largest = l
+        if r < n and int(arr[r][parametro]) < int(arr[largest][parametro]):
+            largest = r
+    if largest != i:
+        arr[i] , arr[largest] = arr[largest] , arr[i]
+        heapify(arr,n,largest,parametro,orden)
 
+def heapsort(arr,parametro,orden): #Algoritmo Heapsort
+    n = len(arr)
+    for i in range(n//2 - 1,-1,-1):
+        heapify(arr,n,i,parametro,orden)
+    for i in range(n - 1,0,-1):
+        arr[i] , arr[0] = arr[0] , arr[i]
+        heapify(arr,i,0,parametro,orden)
 
+def shellsort(ocurrencias,orden):
+    n = len(ocurrencias)
+    intervalo = n // 2
+    while intervalo > 0:
+        for i in range(intervalo, n):
+            temp_nombre, temp_datos = ocurrencias[i]
+            j = i
+            if orden: #Ascendente
+                while j >= intervalo and temp_datos['apariciones'] < ocurrencias[j - intervalo][1]['apariciones']:
+                    ocurrencias[j] = ocurrencias[j - intervalo]
+                    j -= intervalo
+            else: #Descendente
+                while j >= intervalo and temp_datos['apariciones'] > ocurrencias[j - intervalo][1]['apariciones']:
+                    ocurrencias[j] = ocurrencias[j - intervalo]
+                    j -= intervalo                        
+            ocurrencias[j] = (temp_nombre, temp_datos)
+        intervalo //= 2
 
-
-def ordenamiento(database):
+def ordenamiento(database,orden):
 
     #Se selecciona un elemento por el cual se van a filtrar los datos mas importante
     print("\nSeleccione un elemento a ordenar: ")
@@ -163,59 +216,78 @@ def ordenamiento(database):
     print("7. Regresar")
     decision = int(input())
 
+    #Reserva
     if decision == 1:
         print("")
         n = len(database)
         parametro = "reserva"
         quicksort_fechas(database,0,n-1,parametro,orden)
+        print("Nombre    Fecha de reservacion    Numero de telefono          Correo electronico            ID")
+        print("")
         for registro in database:
-            print(registro["nombre"],registro["reserva"], registro["telefono"],registro["correo"],registro["id"])
+            print("{:<14} {:20} {:21} {:<32} {:<7}".format(registro["nombre"], registro["reserva"], registro["telefono"],registro["correo"],registro["id"]))
+    #Entrada
     elif decision == 2:
         print("")        
         n = len(database)
         parametro = "entrada"
         quicksort_fechas(database,0,n-1,parametro,orden)
+        print("Nombre       Fecha de entrada    Numero de telefono          Correo electronico             ID")
+        print("")
         for registro in database:
-            print(registro["nombre"],registro["entrada"], registro["telefono"],registro["correo"],registro["id"])
+            print("{:<14} {:20} {:21} {:<32} {:<7}".format(registro["nombre"], registro["entrada"], registro["telefono"],registro["correo"],registro["id"]))
+    #Salida
     elif decision == 3:
         print("")        
         n = len(database)
         parametro = "salida"
         quicksort_fechas(database,0,n-1,parametro,orden)
+        print("Nombre       Fecha de salida     Numero de telefono          Correo electronico             ID")
+        print("")
         for registro in database:
-            print(registro["nombre"],registro["salida"], registro["telefono"],registro["correo"],
-                registro["id"])
+            print("{:<14} {:20} {:21} {:<32} {:<7}".format(registro["nombre"], registro["salida"], registro["telefono"],registro["correo"],registro["id"]))
+    #Nro Habitacion
     elif decision == 4:
         print("")        
         n = len(database)
         parametro = "nro habitacion"
         ordenado = quicksort(database,parametro,orden)
+        print("Nombre      Numero de habitacion       Numero de telefono        Correo electronico                ID")
+        print("")
         for registro in ordenado:
-            print(registro["nombre"],registro["nro habitacion"], registro["telefono"],registro["correo"],registro["id"])
+            print("{:<14} {:^20} {:^24} {:36} {:<7}".format(registro["nombre"], registro["nro habitacion"], registro["telefono"],registro["correo"],registro["id"]))
+    #Estadia
     elif decision == 5:
         print("")        
         n = len(database)
         parametro = "estadia"
         ordenado = quicksort(database,parametro,orden)
+        print("Nombre       Duracion de Estadia      Numero de telefono        Correo electronico                ID")
+        print("")
         for registro in ordenado:
-            print(registro["nombre"],registro["estadia"], registro["telefono"],registro["correo"],registro["id"])                                                     
+            print("{:<11} {:^21} {:^26} {:36} {:<7}".format(registro["nombre"], registro["estadia"], registro["telefono"],registro["correo"],registro["id"]))                                                    
+    #Precio
     elif decision == 6:
         print("")        
         n = len(database)
         parametro = "precio"
         ordenado = quicksort(database,parametro,orden)
+        print("Nombre        Precio      Numero de telefono       Correo electronico                ID")
+        print("")
         for registro in ordenado:
-            print(registro["nombre"],registro["precio"], registro["telefono"],registro["correo"],
-                registro["id"])
+            print("{:<11} {:^11} {:^24} {:34} {:<7}".format(registro["nombre"], registro["precio"], registro["telefono"],registro["correo"],registro["id"]))
+    #Salir
     elif decision == 7:
         return                                     
 
-def multiple(database):
+def multiple(database,orden):
         
-        filtrados = []
-        eleccion = 0
-        filtro = 0
-
+        filtrados = [] #Creacion de un array para meter los diccionarios filtrados
+        eleccion = 0 #Variable para eleccion
+        filtro = 0  #Usado para ingresar fechas a filtrar
+        
+        #Se escoge un filtro a manera de embudo
+        
         print("\nEscoge el primer filtro: ")
         print("1. Fecha de Reserva")
         print("2. Fecha de Entrada")
@@ -223,73 +295,94 @@ def multiple(database):
         print("4. Regresar")
         eleccion = int(input())
 
+        #Embudo Reserva
         if eleccion == 1: 
             print("\nIntroduce una Fecha de Reserva para filtrar. Ejemplo (dd/mm/aaaa)")
             filtro = input()
             for i in database:
                 if i.get('reserva') == filtro:
                     filtrados.append(i)
+        #Embudo Entrada            
         elif eleccion == 2: 
             print("\nIntroduce una Fecha de Entrada para filtrar. Ejemplo (dd/mm/aaaa)")
             filtro = input()
             for i in database:
                 if i.get('entrada') == filtro:
                     filtrados.append(i)
+        #Embudo Salida            
         elif eleccion == 3: 
             print("\nIntroduce una Fecha de Salida para filtrar. Ejemplo (dd/mm/aaaa)")
             filtro = input()
             for i in database:
                 if i.get('salida') == filtro:
                     filtrados.append(i)
+        #Salir            
         elif eleccion == 4:
             return
         else:
             print("Error al introducir una opcion")
 
         eleccion2 = 0
+
         n = len(filtrados)
 
+        #Se escoge un termino a ordenar (ya teniendo un filtro)        
         print("Escoge el elemento a ordenar:")
         print("1. Nro Habitacion")
         print("2. Duracion Estadia")
         print("3. Precio Total") 
-
         eleccion2 = int(input())
+
+        #Nro Habitacion
         if eleccion2 == 1:
             parametro = "nro habitacion"
             ordenado = quicksort(filtrados,parametro,orden)
             print()
-            for registro in filtrados:
-                print(registro["nombre"],registro["nro habitacion"], registro["telefono"],registro["correo"],registro["id"]) 
-        if eleccion2 == 2:
+            print("Nombre      Numero de habitacion       Numero de telefono        Correo electronico                ID")
+            print("")
+            for registro in ordenado:
+                print("{:<14} {:^20} {:^24} {:36} {:<7}".format(registro["nombre"], registro["nro habitacion"], registro["telefono"],registro["correo"],registro["id"]))
+        #Estadia
+        elif eleccion2 == 2:
             parametro = "estadia"
             ordenado = quicksort(filtrados,parametro,orden)
             print()
-            for registro in filtrados:
-                print(registro["nombre"],registro["estadia"], registro["telefono"],registro["correo"],registro["id"])             
-        if eleccion2 == 3:
+            print("Nombre       Duracion de Estadia      Numero de telefono        Correo electronico                ID")
+            print("")
+            for registro in ordenado:
+                print("{:<11} {:^21} {:^26} {:36} {:<7}".format(registro["nombre"], registro["estadia"], registro["telefono"],registro["correo"],registro["id"]))             
+        #Precio
+        elif eleccion2 == 3:
             parametro = "precio"
             ordenado = quicksort(filtrados,parametro,orden)
             print()
-            for registro in filtrados:
-                print(registro["nombre"],registro["precio"], registro["telefono"],registro["correo"],registro["id"])
+            print("Nombre        Precio      Numero de telefono       Correo electronico                ID")
+            print("")
+            for registro in ordenado:
+                print("{:<11} {:^11} {:^24} {:34} {:<7}".format(registro["nombre"], registro["precio"], registro["telefono"],registro["correo"],registro["id"]))
         else:
             print("Error al introducir una opcion")                                            
 
 def archivo(orden, descripcion,ruta_defecto):
-    config = []
-    with open('configuracion.csv','r') as archivo_csv:
+
+    config = [] #Array usado para llenarlo de diccionarios del archivo configuracion.csv
+
+    with open('configuracion.csv','r') as archivo_csv: #Lectura del archivo configuracion.csv
         lector = csv.reader(archivo_csv, delimiter=';')
-        next(lector)
-        for i in lector:
+        next(lector) #Se omite el primer registro del archivo de configuracion
+
+        for i in lector: #Ciclo para llenar el array de diccionarios
             modalidades = diccionario_config()
             modalidades["defecto"] = i[0]
             modalidades["detalles"] = i[1]
             modalidades["ruta"] = i[2]
             config.append(modalidades)  
 
-    decision = 0
+    decision = 0 #Variable de decision
+
+    #Se pregunta si el usuario quiere ordenar de manera ascendente o descendente
     print("\nSeleccione un orden: ")
+    print("Orden actual: ",orden)
     print("1. Ascendente") 
     print("2. Descendente")
     decision = int(input())
@@ -307,56 +400,59 @@ def archivo(orden, descripcion,ruta_defecto):
     else:
         print("\nVuelva a introducir una opcion")    
 
-    decision1 = 0 
+    decision1 = 0 #Variable de decision
+    #Se pregunta si desea mantener el mensaje actual
     print("\nDesea mantener el mensaje actual o cambiarlo?")
-    print("Mensaje: descripcion")
-    print("1. Mantener")
+    print("Mensaje: ",descripcion)
+    print("1. Defecto")
     print("2. Cambiar al Hesperia")
     print("3. Cambiar al Carlton")
     decision1 = int(input())
+
     if decision1 == 1:
-        print()
+        descripcion = descripcion
     if decision1 == 2:
         for i in config:
             if i.get("detalles") == "Hotel Hesperia, 4 Estrellas, Valencia":
                 descripcion = "Hotel: Hesperia, 4 Estrellas, Valencia"
-                break
     elif decision1 == 3:
         for i in config:
             if i.get("detalles") == "Hotel Carlton, 5 Estrellas, Nueva York":
                 descripcion = "Hotel: Carlton, 5 Estrellas, Nueva York"
-                break
     else:
         print("\nVuelva a introducir una opcion")   
 
-    decision2 = 0 
+    decision2 = 0 #Variable de decision
+    #Se pregunta si se desea cambiar la ruta del archivo.csv
     print("\nDesea mantener la ruta actual o cambiarla a otra opcion?")
     print("Ruta: ",ruta_defecto)
-    print("1. Mantener")
+    print("1. Defecto")
     print("2. Cambiar a Carpeta 1")
     print("3. Cambiar a Carpeta 2")
 
     decision2 = int(input())
 
     if decision2 == 1:
-        print()
+        ruta_defecto = ruta_defecto
     elif decision2 == 2:
         for i in config:
             if i.get("ruta") == 'Documentos':
-                ruta_nueva = 'C:\\Users\jodri\\OneDrive\\Escritorio\\Carpeta Prueba 1'
-                shutil.copy(ruta_defecto,ruta_nueva)
-                break
+                ruta_nueva = 'C:\\Users\jodri\\OneDrive\\Escritorio\\Carpeta Prueba 1' #Se puede modificar la ruta a conveniencia
+                shutil.copy(ruta_defecto,ruta_nueva) #Se copia la el archivo a una nueva ruta
+                ruta_defecto = ruta_nueva  
+
     elif decision2 == 3:
         for i in config:
             if i.get("ruta") == 'Descargas':
-                ruta_nueva = 'C:\\Users\\jodri\\OneDrive\\Escritorio\\Carpeta Prueba 2'
-                shutil.copy(ruta_defecto,ruta_nueva)
-                break
-    ruta_defecto = ruta_nueva       
-
+                ruta_nueva = 'C:\\Users\\jodri\\OneDrive\\Escritorio\\Carpeta Prueba 2' #Se puede modificar la ruta a conveniencia
+                shutil.copy(ruta_defecto,ruta_nueva) #Se copia la el archivo a una nueva ruta
+                ruta_defecto = ruta_nueva
+    else:
+        print("\nVuelva a introducir una opcion")              
+   
     return orden, descripcion, ruta_defecto
 
-def adicionales(database):
+def adicionales(database,orden):
 
     eleccion = 0
 
@@ -367,6 +463,8 @@ def adicionales(database):
     eleccion = int(input())
 
     if eleccion == 1:
+    
+        #Se introducen 2 fechas de reservas para filtrar como embudo
         filtrados = []   
         print("\nIntroduce el rango inferior de una Fecha de Reserva para filtrar. Ejemplo (dd/mm/aaaa)")
         filtro_1 = input()
@@ -377,105 +475,151 @@ def adicionales(database):
         parseo_1 = datetime.strptime(filtro_1, "%d/%m/%Y")
         parseo_2 = datetime.strptime(filtro_2, "%d/%m/%Y")
 
+        #Se convierten las fechas de los diccionarios y se comparan con los filtros
         for i in database:
             parseo_principal = datetime.strptime(i.get('reserva'), "%d/%m/%Y") 
             if parseo_1 <= parseo_principal <= parseo_2:
                 filtrados.append(i)   
 
+        #Finalmente se orden las fechas filtradas por su rango de precio
         parametro = "precio"
-        mergesort(filtrados,parametro)
+        #Se hace uso del Algoritmo Mergesort
+        mergesort(filtrados,parametro,orden)
+        print("Nombre        Precio      Numero de telefono       Correo electronico                ID")
+        print("")
         for registro in filtrados:
-            print(registro["nombre"],registro["precio"], registro["telefono"],registro["correo"],registro["id"]) 
+            print("{:<11} {:^11} {:^24} {:34} {:<7}".format(registro["nombre"], registro["precio"], registro["telefono"],registro["correo"],registro["id"])) 
 
-    #empieza aqui la eleccion 2
+    elif eleccion == 2:
+        # Inicializar un diccionario para contar las ocurrencias de nombres
+        ocurrencias = {}
 
+        # Contar las ocurrencias de nombres
+        for cliente in database:
+            nombre = cliente['nombre']
+            if nombre in ocurrencias:
+                ocurrencias[nombre]['apariciones'] += 1
+            else:
+                ocurrencias[nombre] = {
+                    'apariciones': 1,
+                    'id': cliente['id'],
+                    'correo': cliente['correo'],
+                    'telefono': cliente['telefono']
+                }
+
+        # Conversion de diccionario a tupla
+        lista = list(ocurrencias.items())
+        # Aplicar Shellsort a las ocurrencias en forma de tupla       
+        shellsort(lista,orden)
+
+        # Imprimir el nombre de cada persona y la cantidad de veces que apareció, ordenado por las ocurrencias
+        print("")
+        print("Nombre        Nro Reservaciones       Numero de telefono        Correo electronico                 ID")
+        for nombre, datos in lista:
+            print("{:<11} {:^21} {:^26} {:36} {:<7}".format(nombre,datos["apariciones"],datos["telefono"],datos["correo"],datos["id"]))
+
+    elif eleccion == 3:
+        print("")
+        parametro = "estadia"
+        heapsort(database,parametro,orden)
+        print("Nombre       Duracion de Estadia      Numero de telefono        Correo electronico                ID")
+        print("")
+        for registro in database:
+            print("{:<11} {:^21} {:^26} {:36} {:<7}".format(registro["nombre"], registro["estadia"], registro["telefono"],registro["correo"],registro["id"]))
+
+    else:
+        print("Dato introducido invalido. Intente de nuevo")
 
 def main():
+    try:
+        #Seleccion de hotel
+        hotel = 'hotel.csv'
 
-    #Seleccion de hotel
-    hotel = 'hotel.csv'
+        #Ruta por defecto del archivo .csv
+        ruta_defecto = os.path.join(os.getcwd(),hotel)
 
-    #Ruta por defecto del archivo .csv
-    ruta_defecto = os.path.join(os.getcwd(),hotel)
-
-    #Eleccion de Orden (Ascendente o Descendente)
-    while True:
-        print("\nElige una opcion de orden: ")
-        print("1. Ascendentemente")
-        print("2. Descendetemente")
-        orden = int(input())
-
-        if orden == 1:
-            opcion = True
-            break
-        elif orden == 2:
-            opcion = False
-            break
-        else:
-            print("\nOcurrio un error al ingresar una opcion")    
-            
-    #Lectura de archivos .csv
-    with open(ruta_defecto,'r') as archivo_csv:
-        lector = csv.reader(archivo_csv, delimiter=';')
-
-        next(lector) #Se omiten la primera fila
-
-        database = []
-
-        for columna in lector: #lectura del csv
-            persona = diccionario()
-            persona["nombre"] = columna[0]
-            persona["reserva"] = columna[1]
-            persona["entrada"] = columna[2]
-            persona["salida"] = columna[3]
-            persona["nro habitacion"] = columna[4]
-            persona["estadia"] = columna[5]
-            persona["telefono"] = columna[9]
-            persona["correo"] = columna[10]
-            persona["precio"] = columna[11]
-            persona["id"] = columna[17]
-            database.append(persona)
-
-        #Se puede usar este print para verificar toda la base de datos
-        #print(database)
-
-        #Se agregar una descripcion inicial
-        descripcion = 'Hotel Intercontinental, 4 estrellas, Valencia'
-
+        #Eleccion de Orden (Ascendente o Descendente)
         while True:
-            #Informacion del menu
-            print("\n****** BIENVENIDO AL SISTEMA DE RESERVACIONES ******\n")
+            print("\nElige una opcion de orden: ")
+            print("1. Ascendentemente")
+            print("2. Descendetemente")
+            opcion = int(input())
 
-            if orden == True:
-                print("Orden de impresion por defecto: Ascendentemente")
-            elif orden == False:
-                print("Orden de impresion por defecto: Descendentemente")
-
-            print("Descripcion: ",descripcion)
-            print("Ruta: ",ruta_defecto)
-
-            decision = 0
-            #Opciones a realizar
-            print("\nSeleccione una opcion a realizar: ")
-            print("1. Seleccion de Criterios de Ordenamiento (Quicksort)")
-            print("2. Ordenamiento Multiple")
-            print("3. Archivo de Configuracion")
-            print("4. Funcionalidades Adicionales")
-            print("5. Salir")
-            decision = int(input())
-
-            if decision == 1:
-                ordenamiento(database)
-            elif decision == 2:
-                multiple(database)
-            elif decision == 3:
-                #Se retornan los valores en forma de tupla al llamar al metodo
-                orden, descripcion, ruta_defecto = archivo(orden, descripcion, ruta_defecto)
-            elif decision == 4:
-                adicionales(database)
-            elif decision == 5:
+            if opcion == 1:
+                orden = True
+                break
+            elif opcion == 2:
+                orden = False
                 break
             else:
-                print("Error al introducir una opcion")    
+                print("\nOcurrio un error al ingresar una opcion")    
                 
+        #Lectura de archivos .csv
+        with open(ruta_defecto,'r') as archivo_csv: #Lectura del archivo hotel.csv
+            lector = csv.reader(archivo_csv, delimiter=';')
+
+            next(lector) #Se omiten la primera fila del archivo.csv
+
+            database = [] #Se usa el array para guardar diccionarios de cada registro
+
+            for columna in lector: #lectura del csv y creacion de diccionarios a agregarse en el array
+                persona = diccionario()
+                persona["nombre"] = columna[0]
+                persona["reserva"] = columna[1]
+                persona["entrada"] = columna[2]
+                persona["salida"] = columna[3]
+                persona["nro habitacion"] = columna[4]
+                persona["estadia"] = columna[5]
+                persona["telefono"] = columna[9]
+                persona["correo"] = columna[10]
+                persona["precio"] = columna[11]
+                persona["id"] = columna[17]
+                database.append(persona)
+
+            #Se puede usar este print para verificar toda la base de datos
+            #print(database)
+
+            #Se agregar una descripcion inicial
+            descripcion = 'Hotel Intercontinental, 4 estrellas, Valencia'
+
+            while True:
+                #Informacion del menu
+                print("\n****** BIENVENIDO AL SISTEMA DE RESERVACIONES ******\n")
+
+                if orden == True:
+                    print("Orden de impresion por defecto: Ascendentemente")
+                elif orden == False:
+                    print("Orden de impresion por defecto: Descendentemente")
+
+                print("Descripcion: ",descripcion)
+                print("Ruta: ",ruta_defecto)
+
+                decision = 0
+                #Opciones a realizar
+                print("\nSeleccione una opcion a realizar: ")
+                print("1. Seleccion de Criterios de Ordenamiento (Quicksort)")
+                print("2. Ordenamiento Multiple")
+                print("3. Archivo de Configuracion")
+                print("4. Funcionalidades Adicionales")
+                print("5. Salir")
+                decision = int(input())
+
+                if decision == 1:
+                    ordenamiento(database,orden)
+                elif decision == 2:
+                    multiple(database,orden)
+                elif decision == 3:
+                    #Se retornan los valores en forma de tupla al llamar al metodo
+                    orden, descripcion, ruta_defecto = archivo(orden, descripcion, ruta_defecto)
+                elif decision == 4:
+                    adicionales(database,orden)
+                elif decision == 5:
+                    print("\nGracias por usar el programa :)")
+                    break
+                else:
+                    print("\nError al introducir una opcion")    
+    except ValueError:
+        print("Solo se permiten numeros enteros")
+    except Exception as e:
+        print("Error: ",e,". Intente de nuevo...")
 main()

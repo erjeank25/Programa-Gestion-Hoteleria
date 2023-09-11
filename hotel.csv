@@ -1,15 +1,15 @@
 Nombre;Fecha Reservacion;Fecha Entrada;Fecha Salida;Nro Habitacion;Duracion de la Estadía (dias);Tipo de Habitacion;Preferencias Alimentarias;Nro Personas;Telefono;Contacto;Precio Total ($);Metodo de Pago;Notas Adicionales;Estado de la Reservacion;Check-in;Check-out;ID
-Jean;20/07/2023;04/08/2023;08/08/2023;3;4;Doble;Rica en proteinas;2;0414-5678945;jodriozola25@gmail.com;200;Credito;Excelente servicio;Aprobada;08:00:00;13:00:00;4567
-Annuar;18/07/2023;01/08/2023;09/08/2023;7;8;Individual;Rica en fibra;1;0414-3421267;annuqrabouharb123@gmail.com;460;Efectivo;Brutal comida;Aprobada;08:00:00;13:00:00;8774
-Arturo;16/07/2023;30/07/2023;10/08/2023;2;11;Triple;Rica en fibra;5;0412-4563459;arturito@gmail.com;800;Credito;Sin comentarios;Aprobada;08:00:00;13:00:00;3597
-Raul;15/06/2023;26/06/2023;05/07/2023;5;9;Doble;Rica en proteinas;2;0416-3489127;raulgonzalez@hotmail.com;280;Efectivo;Sin comentarios;En espera;08:00:00;13:00:00;2581
-Sofia;20/07/2023;14/06/2023;19/06/2023;7;5;King;Alergia a mariscos;2;0412-2385109;sofigarcia05@gmail.com;260;Efectivo;Increible piscina;Aprobada;08:00:00;13:00:00;2148
-Maria;02/03/2023;06/04/2023;30/04/2023;6;24;Suite;Solo comida vegana;4;0414-0087634;mariarodriguez99@gmail.com;1300;Credito;Sin comentarios;En espera;08:00:00;13:00:00;1375
-Andrea;06/01/2023;08/03/2023;21/03/2023;3;13;King;Solo comida vegana;2;0416-1369078;andreahernandezz25@gmail.com;670;Credito;Camas excelentes;Aprobada;08:00:00;13:00:00;3472
-Annuar;07/06/2023;31/07/2023;10/08/2023;5;10;Queen;Alergia a mariscos;2;0414-3458234;annuqrabouharb123@gmail.com;630;Credito;Sin comentarios;En espera;08:00:00;13:00:00;8774
-Maria;03/04/2023;25/04/2023;06/05/2023;2;11;Individual;Alergia a mariscos;1;0414-0087634;mariarodriguez99@gmail.com;370;Efectivo;Comida espectacular;Aprobada;08:00:00;13:00:00;1375
-Pedro;05/08/2023;28/08/2023;05/09/2023;1;8;Triple;Rica en fibra;6;0412-0980761;pedropascal04@gmail.com;840;Credito;Sin comentarios;En espera;08:00:00;13:00:00;5283
-Jean;15/08/2023;18/09/2023;25/09/2023;4;7;Individual;Rica en fibra;1;0414-7658907;jodriozola25@gmail.com;935;Credito;Sin comentarios;Aprobada;08:00:00;13:00:00;4567
-Annuar;01/09/2023;03/09/2023;20/09/2023;3;17;Doble;Alergia a mariscos;2;0414-2349853;annuqrabouharb123@gmail.com;370;Efectivo;Sin comentarios;Aprobada;08:00:00;13:00:00;8774
-Arturo;15/09/2023;18/09/2023;30/09/2023;7;12;King;Solo comida vegana;2;0414-7641234;arturito@gmail.com;180;Efectivo;Excelentes camas;Aprobada;08:00:00;13:00:00;3597
-Raul;12/09/2023;19/09/2023;27/09/2023;10;8;Queen;Solo comida vegana;2;0414-0098752;raulgonzalez@hotmail.com;230;Efectivo;Buenas piscina;Aprobada;08:00:00;13:00:00;2581
+Jean;20/7/2023;4/8/2023;8/8/2023;3;4;Doble;Rica en proteinas;2;0414-5678945;jodriozola25@gmail.com;200;Credito;Excelente servicio;Aprobada;08:00:00;13:00:00;4567
+Annuar;18/7/2023;1/8/2023;9/8/2023;7;8;Individual;Rica en fibra;1;0414-3421267;annuqrabouharb123@gmail.com;460;Efectivo;Brutal comida;Aprobada;08:00:00;13:00:00;8774
+Arturo;16/7/2023;30/7/2023;10/8/2023;2;11;Triple;Rica en fibra;5;0412-4563459;arturito@gmail.com;800;Credito;Sin comentarios;Aprobada;08:00:00;13:00:00;3597
+Raul;15/6/2023;26/6/2023;5/7/2023;5;9;Doble;Rica en proteinas;2;0416-3489127;raulgonzalez@hotmail.com;280;Efectivo;Sin comentarios;En espera;08:00:00;13:00:00;2581
+Sofia;20/7/2023;14/6/2023;19/6/2023;7;5;King;Alergia a mariscos;2;0412-2385109;sofigarcia05@gmail.com;260;Efectivo;Increible piscina;Aprobada;08:00:00;13:00:00;2148
+Maria;2/3/2023;6/4/2023;30/4/2023;6;24;Suite;Solo comida vegana;4;0414-0087634;mariarodriguez99@gmail.com;1300;Credito;Sin comentarios;En espera;08:00:00;13:00:00;1375
+Andrea;6/1/2023;8/3/2023;21/3/2023;3;13;King;Solo comida vegana;2;0416-1369078;andreahernandezz25@gmail.com;670;Credito;Camas excelentes;Aprobada;08:00:00;13:00:00;3472
+Annuar;7/6/2023;31/7/2023;10/8/2023;5;10;Queen;Alergia a mariscos;2;0414-3458234;annuqrabouharb123@gmail.com;630;Credito;Sin comentarios;En espera;08:00:00;13:00:00;8774
+Maria;3/4/2023;25/4/2023;6/5/2023;2;11;Individual;Alergia a mariscos;1;0414-0087634;mariarodriguez99@gmail.com;370;Efectivo;Comida espectacular;Aprobada;08:00:00;13:00:00;1375
+Pedro;5/8/2023;28/8/2023;5/9/2023;1;8;Triple;Rica en fibra;6;0412-0980761;pedropascal04@gmail.com;840;Credito;Sin comentarios;En espera;08:00:00;13:00:00;5283
+Jean;15/8/2023;18/9/2023;25/9/2023;4;7;Individual;Rica en fibra;1;0414-5678945;jodriozola25@gmail.com;935;Credito;Sin comentarios;Aprobada;08:00:00;13:00:00;4567
+Annuar;1/9/2023;3/9/2023;20/9/2023;3;17;Doble;Alergia a mariscos;2;0414-3458234;annuqrabouharb123@gmail.com;370;Efectivo;Sin comentarios;Aprobada;08:00:00;13:00:00;8774
+Arturo;15/9/2023;18/9/2023;30/9/2023;7;12;King;Solo comida vegana;2;0412-4563459;arturito@gmail.com;180;Efectivo;Excelentes camas;Aprobada;08:00:00;13:00:00;3597
+Raul;12/9/2023;19/9/2023;27/9/2023;10;8;Queen;Solo comida vegana;2;0416-3489127;raulgonzalez@hotmail.com;230;Efectivo;Buenas piscina;Aprobada;08:00:00;13:00:00;2581
