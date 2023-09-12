@@ -1,6 +1,6 @@
-#Programa Gestion Hoteleria
+# Programa Gestion Hoteleria
 
-##Descripción
+## Descripción
 
 1er Proyecto Algoritmos 2
 
@@ -13,6 +13,6 @@ El proyecto consiste en un Sistema Avanzado de Gestión de Reservaciones y Orden
 
 Autores:
 
-Jean Odriozol
+Jean Odriozola
 
 Annuar Abouharb
