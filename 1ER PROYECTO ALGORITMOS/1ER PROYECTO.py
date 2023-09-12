@@ -11,9 +11,8 @@ import shutil #Usada en este caso para copiar archivos
 from datetime import datetime #Usada para manipular fechas y horas
 
 
-#Variables globales usadas para determinar el orden (ascen o descen), detalles del hotel y
+#Variables globales usadas para determinar, detalles del hotel y
 #ruta por defecto
-
 
 descripcion = ""
 ruta_defecto = ""
@@ -364,13 +363,12 @@ def archivo(orden, descripcion,ruta_defecto):
             modalidades["defecto"] = i[0]
             modalidades["detalles"] = i[1]
             modalidades["ruta"] = i[2]
-            config.append(modalidades)  
+            config.append(modalidades)
 
     decision = 0 #Variable de decision
 
     #Se pregunta si el usuario quiere ordenar de manera ascendente o descendente
     print("\nSeleccione un orden: ")
-    print("Orden actual: ",orden)
     print("1. Ascendente") 
     print("2. Descendente")
     decision = int(input())
@@ -392,21 +390,17 @@ def archivo(orden, descripcion,ruta_defecto):
     #Se pregunta si desea mantener el mensaje actual
     print("\nDesea mantener el mensaje actual o cambiarlo?")
     print("Mensaje: ",descripcion)
-    print("1. Defecto")
+    print("1. Mensaje inicial")
     print("2. Cambiar al Hesperia")
-    print("3. Cambiar al Carlton")
     decision1 = int(input())
 
     if decision1 == 1:
         descripcion = descripcion
     if decision1 == 2:
         for i in config:
-            if i.get("detalles") == "Hotel Hesperia, 4 Estrellas, Valencia":
-                descripcion = "Hotel: Hesperia, 4 Estrellas, Valencia"
-    elif decision1 == 3:
-        for i in config:
-            if i.get("detalles") == "Hotel Carlton, 5 Estrellas, Nueva York":
-                descripcion = "Hotel: Carlton, 5 Estrellas, Nueva York"
+            if i.get("detalles") == "Hotel Hesperia, 4 Estrellas, Caracas":
+                descripcion = descripcion.replace("Intercontinental","Hesperia").replace("5","4").replace("Valencia","Caracas")
+                break
     else:
         print("\nVuelva a introducir una opcion")   
 
@@ -414,27 +408,22 @@ def archivo(orden, descripcion,ruta_defecto):
     #Se pregunta si se desea cambiar la ruta del archivo.csv
     print("\nDesea mantener la ruta actual o cambiarla a otra opcion?")
     print("Ruta: ",ruta_defecto)
-    print("1. Defecto")
+    print("1. Ruta Inicial")
     print("2. Cambiar a Carpeta 1")
-    print("3. Cambiar a Carpeta 2")
 
     decision2 = int(input())
 
     if decision2 == 1:
+        ruta_nueva = ruta_defecto
         ruta_defecto = ruta_defecto
     elif decision2 == 2:
         for i in config:
-            if i.get("ruta") == 'Documentos':
+            if i.get("ruta") == 'Nuevo':
                 ruta_nueva = 'C:\\Users\jodri\\OneDrive\\Escritorio\\Carpeta Prueba 1' #Se puede modificar la ruta a conveniencia
                 shutil.copy(ruta_defecto,ruta_nueva) #Se copia la el archivo a una nueva ruta
-                ruta_defecto = ruta_nueva  
-
-    elif decision2 == 3:
-        for i in config:
-            if i.get("ruta") == 'Descargas':
-                ruta_nueva = 'C:\\Users\\jodri\\OneDrive\\Escritorio\\Carpeta Prueba 2' #Se puede modificar la ruta a conveniencia
-                shutil.copy(ruta_defecto,ruta_nueva) #Se copia la el archivo a una nueva ruta
                 ruta_defecto = ruta_nueva
+                break  
+
     else:
         print("\nVuelva a introducir una opcion")              
    
@@ -444,7 +433,7 @@ def adicionales(database,orden):
 
     eleccion = 0
 
-    print("Seleccione una opcion:")
+    print("\nSeleccione una opcion:")
     print("1. Ordenamiento por Rango (Mergesort)")
     print("2. Clientes por numero de reservaciones realizadas (Shellsort)")
     print("3. Reservaciones segun su duracion de estadia (Heapsort)")
@@ -568,7 +557,7 @@ def main():
             #print(database)
 
             #Se agregar una descripcion inicial
-            descripcion = 'Hotel Intercontinental, 4 estrellas, Valencia'
+            descripcion = "Hotel Intercontinental, 5 estrellas, Valencia"
 
             while True:
                 #Informacion del menu
