@@ -1,9 +1,10 @@
-# Programa Gestion Hoteleria
+#Programa Gestion Hoteleria
 
-## Descripción
+##Descripción
 
- 1er Proyecto Algoritmos 2
- El proyecto consiste en un Sistema Avanzado de Gestión de Reservaciones y Ordenamiento de servicio de hoteleria, en cual se hizo uso de los Algoritmos de Ordenamiento:
+1er Proyecto Algoritmos 2
+
+El proyecto consiste en un Sistema Avanzado de Gestión de Reservaciones y Ordenamiento de servicio de hoteleria, en cual se hizo uso de los Algoritmos de Ordenamiento:
 
 - Quicksort
 - Mergesort
@@ -11,5 +12,7 @@
 - Heapsort
 
 Autores:
+
 Jean Odriozol
+
 Annuar Abouharb
