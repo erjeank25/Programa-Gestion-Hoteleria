@@ -33,18 +33,6 @@ def diccionario(): #Diccionario para almacenar los valores del archivo hotel.csv
     }
     return persona
 
-def diccionario_de_numero_reservaciones(): #Diccionario extra para guardar el numero de reservaciones de cada persona.
-    numero_reservacion = {
-        "nombre": None,
-        "nro reservaciones": None,
-        "telefono": None,
-        "correo": None,
-        "id": None
-    }
-    return numero_reservacion
-
-
-
 def diccionario_config(): #Diccionario para almacenar los valores del archivo configuracion.csv
     modalidades = {
         "defecto": None,
@@ -618,8 +606,6 @@ def main():
                     break
                 else:
                     print("\nError al introducir una opcion")    
-    except ValueError:
-        print("Solo se permiten numeros enteros")
     except Exception as e:
         print("Error: ",e,". Intente de nuevo...")
 main()
